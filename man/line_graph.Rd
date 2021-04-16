@@ -17,22 +17,20 @@ line_graph(
 \arguments{
 \item{dat}{Data with a columns containing variable of interest ("yvar"), x-axis variable ("xvar"), and grouping variable ("catvar").}
 
-\item{limits}{Y-axis limits}
+\item{colors}{Colors for "catvar." NULL (default) returns R's automatic coloring.}
 
-\item{title}{Plot title}
+\item{limits}{Y-axis limits. NULL (default) returns R's automatic limits.}
 
-\item{y_title}{Title to display along y-axis.}
+\item{y_type}{Data format of "yvar". Default returns percent to nearest unit value.}
 
-\item{caption}{Caption for figure}
+\item{title}{Plot title. NULL (default) returns no title.}
 
-\item{var}{Name of variable to plot.}
+\item{y_title}{Title to display along y-axis. NULL (default) returns no title.}
 
-\item{save}{T if user would like to return plot object and save file, F (default) to just return object.}
-
-\item{savename}{File name of map for saving.}
+\item{caption}{Caption for figure. NULL (default) returns no caption.}
 }
 \value{
-Line graph of variable by periods, grouped by race, ethnoracial, income, or gentrification category.
+Line graph of "yvar" over "xvar", categorized by "catvar", formatted per lab style.
 }
 \description{
 This function takes in data and produces a line graph of "yvar" along the "xvar" axis, categorized by "catvar".

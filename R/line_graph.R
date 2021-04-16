@@ -1,16 +1,15 @@
 #' Produce a line graph of a variable.
 #'
-#' This function takes in data and produces a line graph of "yvar" along the "xvar" axis, categorized by "catvar". 
+#' This function takes in data and produces a line graph of "yvar" along the "xvar" axis, categorized by "catvar".
 #'
 #' @param dat Data with a columns containing variable of interest ("yvar"), x-axis variable ("xvar"), and grouping variable ("catvar").
-#' @param var Name of variable to plot.
-#' @param limits Y-axis limits
-#' @param title Plot title
-#' @param y_title Title to display along y-axis.
-#' @param save T if user would like to return plot object and save file, F (default) to just return object.
-#' @param savename File name of map for saving.
-#' @param caption Caption for figure
-#' @return Line graph of variable by periods, grouped by race, ethnoracial, income, or gentrification category.
+#' @param colors Colors for "catvar." NULL (default) returns R's automatic coloring.
+#' @param limits Y-axis limits. NULL (default) returns R's automatic limits.
+#' @param y_type Data format of "yvar". Default returns percent to nearest unit value.
+#' @param title Plot title. NULL (default) returns no title.
+#' @param y_title Title to display along y-axis. NULL (default) returns no title.
+#' @param caption Caption for figure. NULL (default) returns no caption.
+#' @return Line graph of "yvar" over "xvar", categorized by "catvar", formatted per lab style.
 #' @export
 
 line_graph <- function(
@@ -22,35 +21,35 @@ line_graph <- function(
   y_title = NULL,
   caption = NULL
 ) {
-  
-  plot = 
+
+  plot =
     # plot variables
     ggplot(dat, aes(x = xvar, y = yvar, group = catvar)) +
     geom_line(aes(color = catvar))
-  
+
   # adjust colors, if provided
   if (!is.null(colors)) {
     plot = plot + scale_color_manual(values = colors)
   }
-  
+
   # adjust y-axis scales and limits, if provided
-  plot = 
-    plot + 
-    scale_y_continuous(labels = y_type, 
-                       limits = limits, 
+  plot =
+    plot +
+    scale_y_continuous(labels = y_type,
+                       limits = limits,
                        expand = c(0, 0))
-  
+
   # create titles and caption
-  plot = 
+  plot =
     plot +
     ggtitle(title) +
-    labs(y = y_title, caption = caption) 
-  
-  
+    labs(y = y_title, caption = caption)
+
+
   plot = plot + plot_theme()
-    # plot + 
+    # plot +
     # scale_x_discrete(expand = c(0.03, 0.03)) +
-    # theme_bw() + 
+    # theme_bw() +
     # theme(
     #   # Title
     #   legend.title = element_blank(),
@@ -72,7 +71,7 @@ line_graph <- function(
     #   panel.background = element_blank(),
     #   axis.line = element_line(colour = "black"),
     #   panel.border = element_blank()) +
-    # guides(color = guide_legend(nrow = 1)) 
+    # guides(color = guide_legend(nrow = 1))
 
   return(plot)
 }
