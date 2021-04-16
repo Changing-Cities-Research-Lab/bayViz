@@ -29,47 +29,31 @@ line_graph <- function(
 
   # adjust colors, if provided
   if (!is.null(colors)) {
-    plot = plot + scale_color_manual(values = colors)
+    plot =
+      plot +
+      scale_color_manual(values = colors)
   }
 
   # adjust scales and limits, if provided
-  plot = plot +
+  plot =
+    plot +
     scale_y_continuous(labels = y_type,
                        limits = limits,
                        expand = c(0, 0)) +
     scale_x_discrete(expand = c(0.03, 0.03))
 
   # create titles and caption, if provided
-  plot =  plot +
+  plot =
+    plot +
     ggtitle(title) +
-    labs(y = y_title, caption = caption)
+    labs(y = y_title,
+         caption = caption)
 
+  # set legend items all on one row
+  plot = plot + guides(color = guide_legend(nrow = 1))
 
+  # add custom lab theme (in DATASET.R)
   plot = plot + plot_theme()
-    # plot +
-    # theme_bw() +
-    # theme(
-    #   # Title
-    #   legend.title = element_blank(),
-    #   # Legend
-    #   legend.text = element_text(size = 9),
-    #   legend.position = "bottom",
-    #   # Caption
-    #   plot.caption = element_text(size = 7, hjust = 0, face = "italic"),
-    #   # X-axis
-    #   axis.ticks.x = element_blank(),
-    #   axis.title.x = element_blank(),
-    #   axis.text.x = element_text(size = 9),
-    #   # Y-axis
-    #   axis.ticks.y = element_blank(),
-    #   axis.title.y = element_text(size = 9),
-    #   # Background
-    #   panel.grid.minor.y = element_line(color = "grey80"),
-    #   panel.grid.major.x = element_blank(),
-    #   panel.background = element_blank(),
-    #   axis.line = element_line(colour = "black"),
-    #   panel.border = element_blank()) +
-    # guides(color = guide_legend(nrow = 1))
 
   return(plot)
 }

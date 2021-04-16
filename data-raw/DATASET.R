@@ -24,14 +24,15 @@ plot_theme <- function() {
       panel.grid.major.x = element_blank(),
       panel.background = element_blank(),
       axis.line = element_line(colour = "black"),
-      panel.border = element_blank()) +
-    guides(color = guide_legend(nrow = 1))
+      panel.border = element_blank())
 
 }
 
 
 # COLOR VECTORS -----------------------------------------------------------
 # all colors should be named "colors_[]" so it's easy for the user to find
+
+### ADD SOME SAMPLE COLOR SETS, E.G. SEQUENTIAL, DIVERGING ###
 
 colors_ses <- c(
   "Low" = "#D1EAE8",
