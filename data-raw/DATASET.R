@@ -2,9 +2,7 @@
 # PLOT THEME --------------------------------------------------------------
 
 plot_theme <- function(plot) {
-  plot =
-    plot +
-    scale_x_discrete(expand = c(0.03, 0.03)) +
+
     theme_bw() +
     theme(
       # Title
@@ -28,7 +26,7 @@ plot_theme <- function(plot) {
       axis.line = element_line(colour = "black"),
       panel.border = element_blank()) +
     guides(color = guide_legend(nrow = 1))
-  return(plot)
+
 }
 
 

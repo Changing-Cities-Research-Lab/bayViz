@@ -22,8 +22,8 @@ line_graph <- function(
   caption = NULL
 ) {
 
+  # plot variables
   plot =
-    # plot variables
     ggplot(dat, aes(x = xvar, y = yvar, group = catvar)) +
     geom_line(aes(color = catvar))
 
@@ -32,23 +32,21 @@ line_graph <- function(
     plot = plot + scale_color_manual(values = colors)
   }
 
-  # adjust y-axis scales and limits, if provided
-  plot =
-    plot +
+  # adjust scales and limits, if provided
+  plot = plot +
     scale_y_continuous(labels = y_type,
                        limits = limits,
-                       expand = c(0, 0))
+                       expand = c(0, 0)) +
+    scale_x_discrete(expand = c(0.03, 0.03)) +
 
-  # create titles and caption
-  plot =
-    plot +
+  # create titles and caption, if provided
+  plot =  plot +
     ggtitle(title) +
     labs(y = y_title, caption = caption)
 
 
   plot = plot + plot_theme()
     # plot +
-    # scale_x_discrete(expand = c(0.03, 0.03)) +
     # theme_bw() +
     # theme(
     #   # Title
