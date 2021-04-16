@@ -1,7 +1,7 @@
 
 # PLOT THEME --------------------------------------------------------------
 
-plot_theme <- function(plot) {
+plot_theme <- function() {
 
     theme_bw() +
     theme(
