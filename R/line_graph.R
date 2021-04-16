@@ -37,7 +37,7 @@ line_graph <- function(
     scale_y_continuous(labels = y_type,
                        limits = limits,
                        expand = c(0, 0)) +
-    scale_x_discrete(expand = c(0.03, 0.03)) +
+    scale_x_discrete(expand = c(0.03, 0.03))
 
   # create titles and caption, if provided
   plot =  plot +
