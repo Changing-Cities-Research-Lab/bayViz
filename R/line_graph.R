@@ -27,7 +27,13 @@ line_graph <- function(
   # plot variables
   plot =
     ggplot(dat, aes(x = xvar, y = yvar, group = catvar)) +
-    geom_line(aes(color = catvar))
+    if (!is.null(line_type)) {
+      geom_line(aes(color = catvar,
+                    line_type = catvar))
+    } else {
+      geom_line(aes(color = catvar))
+    }
+    
 
   # adjust colors, if provided
   if (!is.null(colors)) {
