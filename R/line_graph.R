@@ -23,18 +23,13 @@ line_graph <- function(
   y_title = NULL,
   caption = NULL
 ) {
-
+  
   # plot variables
   plot =
     ggplot(dat, aes(x = xvar, y = yvar, group = catvar)) +
-    if (!is.null(line_type)) {
-      geom_line(aes(color = catvar,
-                    line_type = catvar))
-    } else {
-      geom_line(aes(color = catvar))
-    }
-    
-
+    geom_line(aes(color = catvar,
+                  linetype = catvar))
+  
   # adjust colors, if provided
   if (!is.null(colors)) {
     plot =
@@ -47,8 +42,12 @@ line_graph <- function(
     plot =
       plot +
       scale_linetype_manual(values = line_type)
+  } else {
+    plot =
+      plot +
+      scale_linetype_manual(values = rep("solid", length(unique(dat$catvar))))
   }
-
+  
   # adjust scales and limits, if provided
   plot =
     plot +
@@ -56,19 +55,19 @@ line_graph <- function(
                        limits = limits,
                        expand = c(0, 0)) +
     scale_x_discrete(expand = c(0.03, 0.03))
-
+  
   # create titles and caption, if provided
   plot =
     plot +
     ggtitle(title) +
     labs(y = y_title,
          caption = caption)
-
+  
   # set legend items all on one row
   plot = plot + guides(color = guide_legend(nrow = 1))
-
+  
   # add custom lab theme (in DATASET.R)
   plot = plot + plot_theme()
-
+  
   return(plot)
 }
