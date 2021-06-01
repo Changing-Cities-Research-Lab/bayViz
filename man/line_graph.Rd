@@ -9,6 +9,7 @@ line_graph(
   colors = NULL,
   limits = NULL,
   y_type = scales::percent_format(accuracy = 1),
+  line_type = NULL,
   title = NULL,
   y_title = NULL,
   caption = NULL
@@ -22,6 +23,8 @@ line_graph(
 \item{limits}{Y-axis limits. NULL (default) returns R's automatic limits.}
 
 \item{y_type}{Data format of "yvar". Default returns percent to nearest unit value.}
+
+\item{line_type}{Line types for "catvar." NULL (default) returns R's automatic solid lines.}
 
 \item{title}{Plot title. NULL (default) returns no title.}
 

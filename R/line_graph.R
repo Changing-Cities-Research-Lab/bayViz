@@ -6,6 +6,7 @@
 #' @param colors Colors for "catvar." NULL (default) returns R's automatic coloring.
 #' @param limits Y-axis limits. NULL (default) returns R's automatic limits.
 #' @param y_type Data format of "yvar". Default returns percent to nearest unit value.
+#' @param line_type Line types for "catvar." NULL (default) returns R's automatic solid lines.
 #' @param title Plot title. NULL (default) returns no title.
 #' @param y_title Title to display along y-axis. NULL (default) returns no title.
 #' @param caption Caption for figure. NULL (default) returns no caption.
@@ -17,6 +18,7 @@ line_graph <- function(
   colors = NULL,
   limits = NULL,
   y_type = scales::percent_format(accuracy = 1),
+  line_type = NULL,
   title = NULL,
   y_title = NULL,
   caption = NULL
@@ -32,6 +34,13 @@ line_graph <- function(
     plot =
       plot +
       scale_color_manual(values = colors)
+  }
+  
+  # adjust line types, if provided
+  if (!is.null(line_type)) {
+    plot =
+      plot +
+      scale_linetype_manual(values = line_type)
   }
 
   # adjust scales and limits, if provided
