@@ -7,6 +7,7 @@
 line_graph(
   dat,
   colors = NULL,
+  facet = F,
   limits = NULL,
   y_type = scales::percent_format(accuracy = 1),
   line_type = NULL,
@@ -19,6 +20,8 @@ line_graph(
 \item{dat}{Data with a columns containing variable of interest ("yvar"), x-axis variable ("xvar"), and grouping variable ("catvar").}
 
 \item{colors}{Colors for "catvar." NULL (default) returns R's automatic coloring.}
+
+\item{facet}{T to use "facet_label" column to create facetting panels. F (default) does not need "facet_label" column.}
 
 \item{limits}{Y-axis limits. NULL (default) returns R's automatic limits.}
 
@@ -33,8 +36,8 @@ line_graph(
 \item{caption}{Caption for figure. NULL (default) returns no caption.}
 }
 \value{
-Line graph of "yvar" over "xvar", categorized by "catvar", formatted per lab style.
+Line graph of "yvar" over "xvar", categorized by "catvar" and facetted by "facet_label" if specified., formatted per lab style.
 }
 \description{
-This function takes in data and produces a line graph of "yvar" along the "xvar" axis, categorized by "catvar".
+This function takes in data and produces a line graph of "yvar" along the "xvar" axis, categorized by "catvar" and facetted by "facet_label" if specified.
 }

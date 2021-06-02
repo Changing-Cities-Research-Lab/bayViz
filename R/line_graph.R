@@ -1,21 +1,23 @@
 #' Produce a line graph of a variable.
 #'
-#' This function takes in data and produces a line graph of "yvar" along the "xvar" axis, categorized by "catvar".
+#' This function takes in data and produces a line graph of "yvar" along the "xvar" axis, categorized by "catvar" and facetted by "facet_label" if specified.
 #'
 #' @param dat Data with a columns containing variable of interest ("yvar"), x-axis variable ("xvar"), and grouping variable ("catvar").
 #' @param colors Colors for "catvar." NULL (default) returns R's automatic coloring.
+#' @param facet T to use "facet_label" column to create facetting panels. F (default) does not need "facet_label" column. 
 #' @param limits Y-axis limits. NULL (default) returns R's automatic limits.
 #' @param y_type Data format of "yvar". Default returns percent to nearest unit value.
 #' @param line_type Line types for "catvar." NULL (default) returns R's automatic solid lines.
 #' @param title Plot title. NULL (default) returns no title.
 #' @param y_title Title to display along y-axis. NULL (default) returns no title.
 #' @param caption Caption for figure. NULL (default) returns no caption.
-#' @return Line graph of "yvar" over "xvar", categorized by "catvar", formatted per lab style.
+#' @return Line graph of "yvar" over "xvar", categorized by "catvar" and facetted by "facet_label" if specified., formatted per lab style.
 #' @export
 
 line_graph <- function(
   dat,
   colors = NULL,
+  facet = F,
   limits = NULL,
   y_type = scales::percent_format(accuracy = 1),
   line_type = NULL,
@@ -35,6 +37,15 @@ line_graph <- function(
     plot =
       plot +
       scale_color_manual(values = colors)
+  }
+  
+  # facetting variable, if provided
+  if (facet) {
+    plot =
+      plot +
+      facet_wrap(vars(facet_label), 
+                 nrow = 1,
+                 scales = "free_y") 
   }
   
   # adjust line types, if provided
