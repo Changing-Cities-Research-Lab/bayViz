@@ -182,7 +182,7 @@ plot_theme <- function() {
       legend.text = element_text(size = 9),
       legend.position = "bottom",
       # Caption
-      plot.caption = element_text(size = 7, hjust = 0, face = "italic"),
+      plot.caption = element_text(size = 7, hjust = 0.5, face = "italic"),
       # X-axis
       axis.ticks.x = element_blank(),
       axis.title.x = element_blank(),
