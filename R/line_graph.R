@@ -39,7 +39,7 @@ line_graph <- function(
       scale_color_manual(values = colors)
   }
   
-  # facetting variable, if provided
+  # faceting variable, if provided
   if (facet) {
     plot =
       plot +
@@ -79,6 +79,13 @@ line_graph <- function(
   
   # add custom lab theme (in DATASET.R)
   plot = plot + plot_theme()
+  
+  # faceting theme
+  if (facet) {
+    plot = plot +
+      theme(strip.background = element_blank(),
+            strip.text = element_text(size = 16, hjust = 0))
+  }
   
   return(plot)
 }
