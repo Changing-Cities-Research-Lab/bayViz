@@ -1,8 +1,5 @@
 #' Produce a Bay Area map of continuous variable with gradient color scale
-#'
-#' This function takes in data and produces an HRA map of King County
-#' representing the variable using a gradient color scale. HRA
-#' column must be named "HRA".
+#' 
 #'
 #' @param data Data with merged with census_shp (use create_mapping_data) and variable of interest.
 #' @param area The Bay Area region to map (i.e., Bay Area, East Bay, South Bay, North Bay, Oakland, San Jose, San Francisco)

@@ -23,7 +23,5 @@ make_map(data, area, var, colors = NULL, title = NULL, caption = NULL)
 Map of variable of interest in Bay Area region.
 }
 \description{
-This function takes in data and produces an HRA map of King County
-representing the variable using a gradient color scale. HRA
-column must be named "HRA".
+Produce a Bay Area map of continuous variable with gradient color scale
 }
