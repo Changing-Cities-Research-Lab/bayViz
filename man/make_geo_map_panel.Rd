@@ -9,7 +9,7 @@ make_geo_map_panel(
   var,
   shp_tracts,
   palette = "sequential",
-  jenksbreaks = T,
+  jenksbreaks = F,
   neg_bins = 3,
   pos_bins = 3,
   breaks = scales::extended_breaks(n = 6),
