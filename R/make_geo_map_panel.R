@@ -122,7 +122,7 @@ make_geo_map_panel <- function(
   if (!is.null(limits)) {
     range = limits
   }
-
+  
   # Street Maps for Each Region
   
   ## San Francisco County
@@ -133,9 +133,15 @@ make_geo_map_panel <- function(
   
   ## South Bay: Santa Clara and San Mateo County
   gmap_south <- gmaps[["South Bay"]]
-
+  
   ## Northern Counties
   gmap_north <- gmaps[["North Bay"]]
+  
+  ## Oakland
+  gmap_oak <- gmaps[["Oakland"]]
+  
+  ## San Jose
+  gmap_sj <- gmaps[["San Jose"]]
   
   maps_all = list()
   panels = unique(data$panel_title)
@@ -220,7 +226,7 @@ make_geo_map_panel <- function(
   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
   legend <- tmp$grobs[[leg]]
   
-  title_letters = c("(a) ", "(b) ", "(c) ", "(d) ")
+  title_letters = c("(a) ", "(b) ", "(c) ", "(d) ", "(e) ", "(f) ")
   
   # Plot maps
   foreach(i = 1:length(panels)) %do% {
@@ -237,8 +243,11 @@ make_geo_map_panel <- function(
       background_map = gmap_north
     } else if (panels[i] == "South Bay") {
       background_map = gmap_south
+    } else if (panels[i] == "Oakland") {
+      background_map = gmap_oak
+    } else if (panels[i] == "San Jose") {
+      background_map = gmap_sj
     }
-      
     # # discrete color bar
     # if (jenksbreaks) {
     #   # Force each jenks break point into the data, assigned to a non-Oakland tract
@@ -343,48 +352,48 @@ make_geo_map_panel <- function(
     #   
     #   # gradient color scale
     # } else {
-      
-      map <-
-        ggmap(background_map) +
-        geom_sf(
-          data = data_panel,
-          aes(fill = var),
-          size = 0,
-          alpha = 0.7,
-          inherit.aes = FALSE
-        ) +
-        geom_sf(
-          data = data_panel,
-          size = 0.3,
-          alpha = 0,
-          inherit.aes = FALSE,
-          color = "black"
-        ) +
-        guides(
-          fill =
-            guide_colorbar(
-              barheight = 0.5,
-              barwidth = 15,
-              title = NULL,
-              frame.colour = "black"
-            )
-        ) +
-        theme_void() +
-        theme(
-          legend.title = element_blank(),
-          legend.position = "none",
-          plot.title = element_text(size = 12, hjust = .5, vjust = 3),
-          plot.margin = margin(3,-.5,3,-.5, unit = "pt"),
-          plot.caption = element_text(size = 8),
-          panel.border = element_rect(colour = "black", fill=NA)
-        ) +
-        labs(title = paste0(title_letters[i], panels[i]))
-      
-      map = map + scale_fill_gradientn(breaks = breaks,
-                                       labels = labels,
-                                       colors = alpha(MAP_COLORS, .8),
-                                       limits = range,
-                                       na.value = "grey60")
+    
+    map <-
+      ggmap(background_map) +
+      geom_sf(
+        data = data_panel,
+        aes(fill = var),
+        size = 0,
+        alpha = 0.7,
+        inherit.aes = FALSE
+      ) +
+      geom_sf(
+        data = data_panel,
+        size = 0.3,
+        alpha = 0,
+        inherit.aes = FALSE,
+        color = "black"
+      ) +
+      guides(
+        fill =
+          guide_colorbar(
+            barheight = 0.5,
+            barwidth = 15,
+            title = NULL,
+            frame.colour = "black"
+          )
+      ) +
+      theme_void() +
+      theme(
+        legend.title = element_blank(),
+        legend.position = "none",
+        plot.title = element_text(size = 12, hjust = .5, vjust = 3),
+        plot.margin = margin(3,-.5,3,-.5, unit = "pt"),
+        plot.caption = element_text(size = 8),
+        panel.border = element_rect(colour = "black", fill=NA)
+      ) +
+      labs(title = paste0(title_letters[i], panels[i]))
+    
+    map = map + scale_fill_gradientn(breaks = breaks,
+                                     labels = labels,
+                                     colors = alpha(MAP_COLORS, .8),
+                                     limits = range,
+                                     na.value = "grey60")
     #}
     
     # plot coordinate points
@@ -405,6 +414,20 @@ make_geo_map_panel <- function(
   map_number <- length(panels)
   width = 0
   height = 0
+  
+  if(map_number == 6) {
+    layout <- rbind(c(1, 2, 3), c(4, 5, 6), c(7, 7, 7))
+    map_panel =
+      grid.arrange(maps_all[[1]], maps_all[[2]], maps_all[[3]], 
+                   maps_all[[4]], maps_all[[5]], maps_all[[6]],
+                   legend,
+                   nrow = 3, ncol = 3,
+                   layout_matrix = layout,
+                   heights = c(5, 5, 1.2),
+                   bottom=textGrob(caption, gp=gpar(fontsize=9,font=3)))
+    width = 9
+    height = 6
+  }
   
   if(map_number == 4) {
     layout <- rbind(c(1, 2), c(3, 4), c(5, 5))
