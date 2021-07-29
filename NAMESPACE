@@ -2,5 +2,5 @@
 
 export(divergingJenksBreaks)
 export(line_graph)
-export(make_geo_map_panel)
 export(make_map)
+export(make_map_panel)

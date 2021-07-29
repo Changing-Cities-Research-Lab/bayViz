@@ -1,12 +1,14 @@
-#' Produce map panel of continuous variable with gradient or Jenks breaks color scale across different geographies.
+#' Produce map panel of continuous variable with gradient or Jenks breaks color scale across different groups.
 #'
 #' This function takes in data and produces a panel of census tract maps 
 #' representing the variable using a gradient or discrete color scale.
-#' Should have "tractid10" column for census tracts and "panel_title" column
-#' containing up to 4 distinct values.
+#' Should have "tractid10" column for census tracts and "group" column
+#' containing up to 6 distinct values. If "group" column is geographic regions,
+#' then "region" parameter can be ignored. 
 #'
-#' @param data Data with a "tractid10" column containing census tracts, "panel_title" column containing panel titles; and variable of interest.
+#' @param data Data with a "tractid10" column containing census tracts, "group" column containing panel titles; and variable of interest.
 #' @param var Name of column containing variable to plot.
+#' @param region If "group" column is not geographic region names, supply name of region to map for entire panel: "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"
 #' @param shp_tracts "US_tract_2010.shp" loaded object
 #' @param palette Color palette: "sequential" (default) or "diverging"
 #' @param jenksbreaks Uses Jenks Breaks when T, otherwise uses continuous color scale
@@ -19,12 +21,13 @@
 #' @param save T if user would like to return plot object and save file, F (default) to just return object.
 #' @param savename File name of map for saving.
 #' @param caption Figure caption
-#' @return Map panel of variable of interest across different geographies.
+#' @return Map panel of variable of interest across different groups.
 #' @export
 
-make_geo_map_panel <- function(
+make_map_panel <- function(
   data,
   var,
+  region = NULL,
   shp_tracts,
   palette = "sequential",
   jenksbreaks = F,
@@ -47,6 +50,12 @@ make_geo_map_panel <- function(
   library(gridExtra)
   library(grid)
   library(BAMMtools)
+  
+  # If supplied, check if region parameter is acceptable
+  if (!is.null(region) &
+      !region %in% c("San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", "East Bay")) {
+    print("Please provide an acceptable region: San Francisco, Oakland, San Jose, South Bay, North Bay, East Bay.")
+  }
   
   # Adjust color palette
   if (palette == "sequential") {
@@ -123,32 +132,18 @@ make_geo_map_panel <- function(
     range = limits
   }
   
-  # Street Maps for Each Region
-  
-  ## San Francisco County
-  gmap_sf <- gmaps[["San Francisco"]]
-  
-  ## East Bay
-  gmap_east <- gmaps[["East Bay"]]
-  
-  ## South Bay: Santa Clara and San Mateo County
-  gmap_south <- gmaps[["South Bay"]]
-  
-  ## Northern Counties
-  gmap_north <- gmaps[["North Bay"]]
-  
-  ## Oakland
-  gmap_oak <- gmaps[["Oakland"]]
-  
-  ## San Jose
-  gmap_sj <- gmaps[["San Jose"]]
-  
   maps_all = list()
-  panels = unique(data$panel_title)
+  panels = unique(data$group)
+  
+  base_map = gmap_sf
+  
+  if (!is.null(region)) {
+    base_map = gmaps[[region]]
+  }
   
   # Get common legend ----
   legend_map <-
-    ggmap(gmap_sf) +
+    ggmap(base_map) +
     geom_sf(
       data = data,
       aes(fill = {{var}}),
@@ -231,22 +226,36 @@ make_geo_map_panel <- function(
   # Plot maps ----
   foreach(i = 1:length(panels)) %do% {
     data_panel = data %>%
-      dplyr::filter(panel_title == panels[i]) %>%
+      dplyr::filter(group == panels[i]) %>%
       mutate(var = {{var}})
     
     background_map = NULL 
-    if (panels[i] == "San Francisco") {
-      background_map = gmap_sf
-    } else if (panels[i] == "East Bay") {
-      background_map = gmap_east
-    } else if (panels[i] == "North Bay") {
-      background_map = gmap_north
-    } else if (panels[i] == "South Bay") {
-      background_map = gmap_south
-    } else if (panels[i] == "Oakland") {
-      background_map = gmap_oak
-    } else if (panels[i] == "San Jose") {
-      background_map = gmap_sj
+    
+    # If region parameter is supplied, use this as background map for entire panel
+    # Otherwise, use "group" column containing geographic regions to select background map.
+    if (!is.null(region)) {
+      background_map = gmaps[[region]]
+      
+    } else {
+      # Street Maps for Each Region
+      if (panels[i] == "San Francisco") {
+        background_map = gmaps[["San Francisco"]]
+        
+      } else if (panels[i] == "East Bay") {
+        background_map = gmaps[["East Bay"]]
+        
+      } else if (panels[i] == "North Bay") {
+        background_map = gmaps[["North Bay"]]
+        
+      } else if (panels[i] == "South Bay") {
+        background_map = gmaps[["South Bay"]]
+        
+      } else if (panels[i] == "Oakland") {
+        background_map = gmaps[["Oakland"]]
+        
+      } else if (panels[i] == "San Jose") {
+        background_map = gmaps[["San Jose"]]
+      } 
     }
     
     ## Discrete color scale ----
