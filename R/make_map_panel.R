@@ -135,8 +135,10 @@ make_map_panel <- function(
   maps_all = list()
   panels = unique(data$group)
   
-  base_map = gmap_sf
+  # Set base map for plotting legend (region doesn't matter)
+  base_map = gmaps[["San Francisco"]]
   
+  # Set region if parameter is supplied
   if (!is.null(region)) {
     base_map = gmaps[[region]]
   }
@@ -419,8 +421,10 @@ make_map_panel <- function(
   
   ## Arrange maps into panels ----
   map_number <- length(panels)
-  width = 0
-  height = 0
+  
+  map_panel = NULL
+  width = 9
+  height = 6
   
   if(map_number == 6) {
     layout <- rbind(c(1, 2, 3), c(4, 5, 6), c(7, 7, 7))
