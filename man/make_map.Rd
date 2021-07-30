@@ -2,26 +2,65 @@
 % Please edit documentation in R/make_map.R
 \name{make_map}
 \alias{make_map}
-\title{Produce a Bay Area map of continuous variable with gradient color scale}
+\title{Produce map of continuous variable with gradient or Jenks breaks color scale.}
 \usage{
-make_map(data, area, var, colors = NULL, title = NULL, caption = NULL)
+make_map(
+  data,
+  var,
+  region,
+  shp_tracts,
+  title = "Title",
+  palette = "sequential",
+  jenksbreaks = F,
+  neg_bins = 3,
+  pos_bins = 3,
+  breaks = scales::extended_breaks(n = 6),
+  labels = scales::percent,
+  limits = NULL,
+  coord = F,
+  save = F,
+  savename = "plot.png",
+  caption = paste0(frb_caption, ses_caption, period_caption)
+)
 }
 \arguments{
-\item{data}{Data with merged with census_shp (use create_mapping_data) and variable of interest.}
-
-\item{area}{The Bay Area region to map (i.e., Bay Area, East Bay, South Bay, North Bay, Oakland, San Jose, San Francisco)}
+\item{data}{Data with a "tractid10" column containing census tracts and variable of interest.}
 
 \item{var}{Name of column containing variable to plot.}
 
-\item{colors}{Either a list of colors, or use NULL/"sequential" and "diverging" for preset color palettes.}
+\item{region}{The Bay Area region to map: "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"}
 
-\item{title}{Title of figure}
+\item{shp_tracts}{"US_tract_2010.shp" loaded object}
+
+\item{title}{Title of map}
+
+\item{palette}{Color palette: "sequential" (default) or "diverging"}
+
+\item{jenksbreaks}{Uses Jenks Breaks when T, otherwise uses continuous color scale}
+
+\item{neg_bins}{For Jenks breaks, number of negative color bins. Default is 3.}
+
+\item{pos_bins}{For Jenks breaks, number of positive color bins. Default is 3.}
+
+\item{breaks}{Gradient scale breaks, either numeric vector or scales::extended_breaks(n = 6)}
+
+\item{labels}{Gradient scale labels, either character vector or scales::percent or scales::comma}
+
+\item{limits}{Gradient scale limits, c(min, max)}
+
+\item{coord}{T if plotting coordinate values (data frame must contain "lat", "lon" columns). Default is F.}
+
+\item{save}{T if user would like to return plot object and save file, F (default) to just return object.}
+
+\item{savename}{File name of map for saving.}
 
 \item{caption}{Figure caption}
 }
 \value{
-Map of variable of interest in Bay Area region.
+Map of variable of interest across different groups.
 }
 \description{
-Produce a Bay Area map of continuous variable with gradient color scale
+This function takes in data and produces a census tract map representing
+the variable using a gradient or discrete color scale. Should have "tractid10"
+column for census tracts.
 }

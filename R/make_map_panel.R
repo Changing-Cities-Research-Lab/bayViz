@@ -54,7 +54,7 @@ make_map_panel <- function(
   # If supplied, check if region parameter is acceptable
   if (!is.null(region) &
       !region %in% c("San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", "East Bay")) {
-    print("Please provide an acceptable region: San Francisco, Oakland, San Jose, South Bay, North Bay, East Bay.")
+    return("Please provide an acceptable region: San Francisco, Oakland, San Jose, South Bay, North Bay, East Bay.")
   }
   
   # Adjust color palette
