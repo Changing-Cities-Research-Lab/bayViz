@@ -28,9 +28,17 @@ relabel_race_cat <- c("PredWhite" = "Predominantly White",
                       "WhiteMixed" = "White/White-Mixed",
                       "MixedOther" = "Multiethnic/Other")
 
+race_cat_plot_order <- c("Predominantly White", "Predominantly Black",
+                         "Predominantly Other","White-Other","Black-White","Black-Other","Multiethnic",
+                         "White/White-Mixed", "Multiethnic/Other")
+
 relabel_move_cat <- c("moved_outba_pct"="Moved out of Bay Area",
                       "diff_city_ba_pct" = "Different City within Bay Area",
                       "moved_within_oak_pct" = "Moved within Oakland")
+
+move_order <- c("Moved out of Bay Area",
+                "Different City within Bay Area",
+                "Moved within Oakland")
 
 relabel_dest_cat <- c("outmigration_outba_pct" = "Outside Bay Area",
                       "withinoakmigration_pct" = "Within Oakland",
@@ -40,17 +48,6 @@ relabel_dest_cat <- c("outmigration_outba_pct" = "Outside Bay Area",
                       "outmigration_sanfran_pct" = "San Francisco",
                       "outmigration_southbay_pct" = "South Bay")
 
-race_cat_plot_order <- c("Predominantly White", "Predominantly Black",
-                         "Predominantly Other","White-Other","Black-White","Black-Other","Multiethnic",
-                         "White/White-Mixed", "Multiethnic/Other")
-
-inc_cat_plot_order <- c("Bottom Quintile", "Second Quintile", "Middle Quintile",
-                        "Fourth Quintile", "Top Quintile")
-
-move_order <- c("Moved out of Bay Area",
-                "Different City within Bay Area",
-                "Moved within Oakland")
-
 dest_order <- c("Outside Bay Area",
                 "South Bay",
                 "San Francisco",
@@ -58,6 +55,11 @@ dest_order <- c("Outside Bay Area",
                 "Contra Costa",
                 "Alameda",
                 "Within Oakland")
+
+inc_cat_plot_order <- c("Bottom Quintile", "Second Quintile", "Middle Quintile",
+                        "Fourth Quintile", "Top Quintile")
+
+ses_cat = c("All", "Low", "Moderate", "LMM" ,"Middle", "High")
 
 # READ IN DATA ---------------------------------------------------------
 
