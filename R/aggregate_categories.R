@@ -25,7 +25,8 @@ aggregate_categories = function(
     dat %>% left_join(inccat, by = "tractid10")
   ) %>%
     select(-tractid10) %>%
-    mutate(cat = factor(cat, levels = c("Overall", race_cat_plot_order, inc_cat, gent_cat_plot_order, ses_lollipop_cat))) %>%
+    mutate(cat = factor(cat, levels = c("Overall", race_cat_plot_order, inc_cat_plot_order, 
+                                        gent_cat_plot_order, ses_cat_plot_order))) %>%
     mutate(facet = factor(facet, levels = c("All", "Ethnoracial", "Income", "Gentrification", "SES"))) %>%
     filter(!is.na(facet))
 

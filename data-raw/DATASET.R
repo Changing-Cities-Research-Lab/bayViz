@@ -59,7 +59,7 @@ dest_order <- c("Outside Bay Area",
 inc_cat_plot_order <- c("Bottom Quintile", "Second Quintile", "Middle Quintile",
                         "Fourth Quintile", "Top Quintile")
 
-ses_cat = c("All", "Low", "Moderate", "LMM" ,"Middle", "High")
+ses_cat_plot_order = c("All", "Low", "Moderate", "LMM" ,"Middle", "High")
 
 # READ IN DATA ---------------------------------------------------------
 
@@ -302,6 +302,7 @@ usethis::use_data(relabel_gent_cat,
                   relabel_dest_cat,
                   race_cat_plot_order,
                   inc_cat_plot_order,
+                  ses_cat_plot_order,
                   move_order,
                   dest_order,
                   colors_ses,
