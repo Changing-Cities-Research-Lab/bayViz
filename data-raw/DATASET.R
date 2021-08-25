@@ -3,6 +3,62 @@ library(tidyverse)
 library(ggmap)
 currentdir <- dirname(rstudioapi::getSourceEditorContext()$path)
 
+# ORDERING FOR LABELS ---------------------------------------------------------
+
+relabel_gent_cat <- c("nongentrifiable" = "Nongentrifiable",
+                      "gentrifying" = "Gentrifying",
+                      "intense"  = "Intense",
+                      "moderate" = "Moderate",
+                      "earlygent" = "Early Gentrification",
+                      "weak" = "Weak",
+                      "peoplepricegent" = "People or Price")
+
+gent_cat_plot_order <- c("Nongentrifiable", "Gentrifying",
+                         "Intense", "Moderate",
+                         "Early Gentrification", "Weak", "People or Price")
+
+relabel_race_cat <- c("PredWhite" = "Predominantly White",
+                      "PredBlack" = "Predominantly Black",
+                      "PredOther"  = "Predominantly Other",
+                      "WhiteOther" = "White-Other",
+                      "BlackWhite" = "Black-White",
+                      "BlackOther" = "Black-Other",
+                      "Multiethnic" = "Multiethnic",
+                      "Overall" = "Overall",
+                      "WhiteMixed" = "White/White-Mixed",
+                      "MixedOther" = "Multiethnic/Other")
+
+relabel_move_cat <- c("moved_outba_pct"="Moved out of Bay Area",
+                      "diff_city_ba_pct" = "Different City within Bay Area",
+                      "moved_within_oak_pct" = "Moved within Oakland")
+
+relabel_dest_cat <- c("outmigration_outba_pct" = "Outside Bay Area",
+                      "withinoakmigration_pct" = "Within Oakland",
+                      "outmigration_alameda_pct" = "Alameda",
+                      "outmigration_contracosta_pct" = "Contra Costa",
+                      "outmigration_northbay_pct" = "North Bay",
+                      "outmigration_sanfran_pct" = "San Francisco",
+                      "outmigration_southbay_pct" = "South Bay")
+
+race_cat_plot_order <- c("Predominantly White", "Predominantly Black",
+                         "Predominantly Other","White-Other","Black-White","Black-Other","Multiethnic",
+                         "White/White-Mixed", "Multiethnic/Other")
+
+inc_cat_plot_order <- c("Bottom Quintile", "Second Quintile", "Middle Quintile",
+                        "Fourth Quintile", "Top Quintile")
+
+move_order <- c("Moved out of Bay Area",
+                "Different City within Bay Area",
+                "Moved within Oakland")
+
+dest_order <- c("Outside Bay Area",
+                "South Bay",
+                "San Francisco",
+                "North Bay",
+                "Contra Costa",
+                "Alameda",
+                "Within Oakland")
+
 # READ IN DATA ---------------------------------------------------------
 
 # Bay Area tractids
@@ -237,10 +293,20 @@ colors_ses <- c(
   "High" = "#147870")
 
 # these data ARE available to the user
-usethis::use_data(colors_ses,
+usethis::use_data(relabel_gent_cat,
+                  gent_cat_plot_order,
+                  relabel_race_cat,
+                  relabel_move_cat,
+                  relabel_dest_cat,
+                  race_cat_plot_order,
+                  inc_cat_plot_order,
+                  move_order,
+                  dest_order,
+                  colors_ses,
                   create_mapping_data,
                   tracts_use,
                   city_tracts,
+                  bay_ids,
                   gentcat,
                   racecat,
                   inccat,
