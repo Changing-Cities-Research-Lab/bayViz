@@ -3,6 +3,32 @@ library(tidyverse)
 library(ggmap)
 currentdir <- dirname(rstudioapi::getSourceEditorContext()$path)
 
+# READ IN DATA ---------------------------------------------------------
+
+# Bay Area tractids
+bay_ids <- readr::read_csv("../../oak-data-repo/oakland_geographies/trtid10_bayarea.csv")
+
+# Oakland tract category data 
+
+# gentrification data
+gentcat <- read_csv("../../oak-data-repo/gentrification_categories/gentcat_006a_50_oak.csv") %>%
+  select(tractid10 = trtid10, cat = gentcat_006a_50)
+gentcat$cat <- plyr::revalue(gentcat$cat, relabel_gent_cat)
+gentcat$cat <- factor(gentcat$cat, levels = gent_cat_plot_order)
+gentcat$facet = "Gentrification"
+
+# race data
+racecat <- read_csv("../../oak-data-repo/ethnoracial_composition/racetypology_oak_tracts_00.csv") %>%
+  select(tractid10 = trtid10, cat = race.shortcategory00)
+racecat$cat <- plyr::revalue(racecat$cat, relabel_race_cat)
+racecat$cat <- factor(racecat$cat, levels = race_cat_plot_order)
+racecat$facet = "Ethnoracial"
+
+# income data
+inccat <- read_csv("../../oak-data-repo/income_categories/hinc8a_categories.csv")
+inccat$cat <- factor(inccat$cat, levels = inc_cat_plot_order)
+inccat$facet = "Income"
+
 # SET UP MAP DATA ---------------------------------------------------------
 
 # Define a function to fix the bbox to be in EPSG:3857
@@ -13,7 +39,7 @@ ggmap_bbox <- function(map) {
   map_bbox <- stats::setNames(unlist(attr(map, "bb")),
                        c("ymin", "xmin", "ymax", "xmax"))
 
-  # Coonvert the bbox to an sf polygon, transform it to 3857,
+  # Convert the bbox to an sf polygon, transform it to 3857,
   # and convert back to a bbox (convoluted, but it works)
   bbox_3857 <- sf::st_bbox(sf::st_transform(sf::st_as_sfc(sf::st_bbox(map_bbox, crs = 4326)), 3857))
 
@@ -199,7 +225,6 @@ plot_theme <- function() {
 
 }
 
-
 # COLOR VECTORS -----------------------------------------------------------
 # all colors should be named "colors_[]" so it's easy for the user to find
 
@@ -216,6 +241,9 @@ usethis::use_data(colors_ses,
                   create_mapping_data,
                   tracts_use,
                   city_tracts,
+                  gentcat,
+                  racecat,
+                  inccat,
                   overwrite = TRUE)
 
 # these data are NOT available to the user
