@@ -1,4 +1,4 @@
-#' Aggregation for Oakland variables.
+#' Aggregation for variables.
 #'
 #' Take mean, median, or sum of all variables by ethnoracial, income, and gentrification grouping.
 #'
@@ -12,24 +12,21 @@ aggregate_categories = function(
   dat,
   compute = "mean",
   group_vars = c(NULL)) {
-
-  library('tidyverse')
-
+  
+  library(tidyverse)
+  
   dat$tractid10 = as.numeric(dat$tractid10)
-
+  
   # Combine gentcat, racecat, & inccat with data
-  data <- rbind(
+  dat <- rbind(
     dat %>% mutate(cat = "Overall", facet = "All"),
-    dat %>% left_join(gentcat, by = "tractid10"),
+    dat %>% left_join(gentcat, by = "tractid10"), 
     dat %>% left_join(racecat, by = "tractid10"),
-    dat %>% left_join(inccat, by = "tractid10")
+    dat %>% left_join(inccat, by = "tractid10") 
   ) %>%
     select(-tractid10) %>%
-    mutate(cat = factor(cat, levels = c("Overall", race_cat_plot_order, inc_cat_plot_order, 
-                                        gent_cat_plot_order, ses_cat_plot_order))) %>%
-    mutate(facet = factor(facet, levels = c("All", "Ethnoracial", "Income", "Gentrification", "SES"))) %>%
     filter(!is.na(facet))
-
+  
   # modify mean, median, and sum so that if there are only NAs then it outputs NA
   compute_fn <- function(x, compute) {
     if (all(is.na(x))) {
@@ -44,11 +41,11 @@ aggregate_categories = function(
       return("Please select mean, median, or sum.")
     }
   }
-
+  
   group_vars <- enquo(group_vars)
-  data <- data %>%
+  dat <- dat %>%
     group_by_at(vars(cat, facet, !!group_vars)) %>%
     dplyr::summarise_all(~ compute_fn(., compute)) %>%
     ungroup()
-  return(data)
+  return(dat)
 }

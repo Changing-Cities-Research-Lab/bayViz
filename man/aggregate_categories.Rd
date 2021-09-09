@@ -2,7 +2,7 @@
 % Please edit documentation in R/aggregate_categories.R
 \name{aggregate_categories}
 \alias{aggregate_categories}
-\title{Aggregation for Oakland variables.}
+\title{Aggregation for variables.}
 \usage{
 aggregate_categories(dat, compute = "mean", group_vars = c(NULL))
 }
