@@ -1,3 +1,4 @@
+# bayViz Package Internal Data
 
 library(tidyverse)
 library(ggmap)
@@ -60,6 +61,14 @@ inc_cat_plot_order <- c("Bottom Quintile", "Second Quintile", "Middle Quintile",
                         "Fourth Quintile", "Top Quintile")
 
 ses_cat_plot_order = c("All", "Low", "Moderate", "LMM" ,"Middle", "High")
+
+# CAPTIONS
+ses_caption = "\nSES Ranges by Equifax Risk Scores: Low = missing or <580, Moderate = 580-649, Middle = 650-749, High = 750+."
+period_caption = "\nHousing Period Ranges: Boom = 2002-2006, Bust = 2007-2009, Recovery = 2010-2014, Post-Recovery = 2015-2017."
+frb_caption = "\nSource: Federal Reserve Bank of New York Consumer Credit Panel/Equifax Data."
+frb_acs_caption = "\nSource: Federal Reserve Bank of New York Consumer Credit Panel/Equifax Data and 2000 US Census, 2005-2009 ACS, and 2012-2016 ACS."
+frb_acs_caption_splitline = "\nSource: Federal Reserve Bank of New York Consumer Credit Panel/Equifax Data\nand 2000 US Census, 2005-2009 ACS, and 2012-2016 ACS."
+acs_caption = "\nSource: 2000 US Census, 2005-2009 ACS, and 2012-2016 ACS."
 
 # READ IN DATA ---------------------------------------------------------
 
@@ -170,7 +179,7 @@ gmaps[["San Jose"]] <-
 gmaps[["North Bay"]] <-
   ggmap::get_map(
     location = c(-123.539, 37.614, -121.586, 39.045),
-    maptype = "roadmap", source = "google", color = "bw" #watercolor
+    maptype = "roadmap", source = "google", color = "bw" 
   ) %>%
   ggmap_bbox()
 
@@ -182,20 +191,6 @@ city_tracts <- readr::read_csv(paste0(currentdir, "/bayarea_majorcity_tracts_201
 # import dataset of tracts to keep for mapping (with sufficient population)
 tracts_use <- readr::read_csv(paste0(currentdir, "/tracts_bayarea_min_pop_hu.csv"))
 
-# # TO-DO: DO WE WANT TO SWITCH TO GET_STAMENMAP?
-# data = kingcounty_hras %>%
-#   right_join(data, by = c("HRA2010v2_" = "HRA")) %>%
-#   st_transform(CRS("+proj=longlat +datum=WGS84"))
-#
-# # map data
-# # Google Street Map for King County ----
-# gmap <- get_stamenmap(
-#   bbox = c(-122.65219845641234, 47.05811462511336, -121.05368763130899, 47.81607270131313),
-#   # ^ is all king county
-#   # c(-122.45262191072183, 47.48734893641715, -122.22946210910732, 47.73869829627044) # seattle
-#   zoom = 10, # use 12 for seattle
-#   maptype = "toner-lite",
-#   color = "bw")
 
 ## TO-DO: TURN THIS INTO ITS OWN FUNCTION?
 # join shapefiles with dataset to map (w/ column "tractid10"); split by BA regions
@@ -303,6 +298,12 @@ usethis::use_data(relabel_gent_cat,
                   race_cat_plot_order,
                   inc_cat_plot_order,
                   ses_cat_plot_order,
+                  ses_caption,
+                  period_caption,
+                  frb_caption,
+                  frb_acs_caption,
+                  frb_acs_caption_splitline,
+                  acs_caption,
                   move_order,
                   dest_order,
                   colors_ses,

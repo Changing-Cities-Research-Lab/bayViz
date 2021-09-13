@@ -223,8 +223,6 @@ make_map_panel <- function(
   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
   legend <- tmp$grobs[[leg]]
   
-  title_letters = c("(a) ", "(b) ", "(c) ", "(d) ", "(e) ", "(f) ")
-  
   # Plot maps ----
   foreach(i = 1:length(panels)) %do% {
     data_panel = data %>%
@@ -326,7 +324,7 @@ make_map_panel <- function(
           plot.caption = element_text(size = 8),
           panel.border = element_rect(colour = "black", fill=NA)
         ) +
-        labs(title = paste0(title_letters[i], panels[i]))
+        labs(title = panels[i])
       
       # set colors manually if different number of negative and positive bins
       if (neg_bins != pos_bins) {
@@ -397,7 +395,7 @@ make_map_panel <- function(
           plot.caption = element_text(size = 8),
           panel.border = element_rect(colour = "black", fill=NA)
         ) +
-        labs(title = paste0(title_letters[i], panels[i]))
+        labs(title = panels[i])
       
       map = map + scale_fill_gradientn(breaks = breaks,
                                        labels = labels,
@@ -473,10 +471,10 @@ make_map_panel <- function(
                    legend,
                    nrow = 2, ncol = 2,
                    layout_matrix = layout,
-                   heights = c(5, 1.2),
+                   heights = c(5.2, 1),
                    bottom=textGrob(caption, gp=gpar(fontsize=9,font=3)))
     width = 7
-    height = 4.1
+    height = 4.4
   }
   
   
