@@ -4,7 +4,9 @@
 #'
 #' @param dat Data with a columns containing variable of interest ("yvar"), x-axis variable ("xvar"), and grouping variable ("catvar").
 #' @param colors Colors for "catvar." NULL (default) returns R's automatic coloring.
-#' @param facet T to use "facet_label" column to create facetting panels. F (default) does not need "facet_label" column. 
+#' @param size Line width. Defaults to 0.5.
+#' @param facet T to use "facet_label" column to create facetting panels. F (default) does not need "facet_label" column.
+#' @param label_names Vector of label names to display for each facet.
 #' @param limits Y-axis limits. NULL (default) returns R's automatic limits.
 #' @param y_type Data format of "yvar". Default returns percent to nearest unit value.
 #' @param line_type Line types for "catvar." NULL (default) returns R's automatic solid lines.
@@ -17,7 +19,9 @@
 line_graph <- function(
   dat,
   colors = NULL,
+  size = 0.5,
   facet = F,
+  label_names = NULL,
   limits = NULL,
   y_type = scales::percent_format(accuracy = 1),
   line_type = NULL,
@@ -25,29 +29,30 @@ line_graph <- function(
   y_title = NULL,
   caption = NULL
 ) {
-  
+
   # plot variables
   plot =
     ggplot(dat, aes(x = xvar, y = yvar, group = catvar)) +
-    geom_line(aes(color = catvar,
-                  linetype = catvar))
-  
+    geom_line(size = size, aes(color = catvar,
+                               linetype = catvar))
+
   # adjust colors, if provided
   if (!is.null(colors)) {
     plot =
       plot +
       scale_color_manual(values = colors)
   }
-  
+
   # faceting variable, if provided
   if (facet) {
     plot =
       plot +
-      facet_wrap(vars(facet_label), 
+      facet_wrap(vars(facet_label),
                  nrow = 1,
-                 scales = "free_y") 
+                 scales = "free_y",
+                 labeller = as_labeller(label_names))
   }
-  
+
   # adjust line types, if provided
   if (!is.null(line_type)) {
     plot =
@@ -58,7 +63,7 @@ line_graph <- function(
       plot +
       scale_linetype_manual(values = rep("solid", length(unique(dat$catvar))))
   }
-  
+
   # adjust scales and limits, if provided
   plot =
     plot +
@@ -66,26 +71,26 @@ line_graph <- function(
                        limits = limits,
                        expand = c(0, 0)) +
     scale_x_discrete(expand = c(0.03, 0.03))
-  
+
   # create titles and caption, if provided
   plot =
     plot +
     ggtitle(title) +
     labs(y = y_title,
          caption = caption)
-  
+
   # set legend items all on one row
   plot = plot + guides(color = guide_legend(nrow = 1))
-  
+
   # add custom lab theme (in DATASET.R)
   plot = plot + plot_theme()
-  
+
   # faceting theme
   if (facet) {
     plot = plot +
       theme(strip.background = element_blank(),
             strip.text = element_text(size = 16, hjust = 0))
   }
-  
+
   return(plot)
 }
