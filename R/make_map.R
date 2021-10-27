@@ -200,7 +200,7 @@ make_map <- function(
         legend.title = element_blank(),
         legend.position = "bottom",
         plot.title = element_text(size = 12, hjust = .5, vjust = 3),
-        plot.margin = margin(3,-.5,3,-.5, unit = "pt"),
+        plot.margin = ggplot2::margin(3,-.5,3,-.5, unit = "pt"),
         plot.caption = element_text(size = 8),
         panel.border = element_rect(colour = "black", fill=NA)
       ) +
@@ -272,7 +272,7 @@ make_map <- function(
         legend.title = element_blank(),
         legend.position = "bottom",
         plot.title = element_text(size = 12, hjust = .5, vjust = 3),
-        plot.margin = margin(3,-.5,3,-.5, unit = "pt"),
+        plot.margin = ggplot2::margin(3,-.5,3,-.5, unit = "pt"),
         plot.caption = element_text(size = 8),
         panel.border = element_rect(colour = "black", fill=NA)
       ) +
