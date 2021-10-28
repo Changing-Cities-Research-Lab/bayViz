@@ -312,11 +312,11 @@ usethis::use_data(relabel_gent_cat,
                   city_tracts,
                   bay_ids,
                   gentcat,
+                  gmaps,
                   racecat,
                   inccat,
                   overwrite = TRUE)
 
 # these data are NOT available to the user
 usethis::use_data(plot_theme,
-                  gmaps,
                   overwrite = TRUE, internal = TRUE)
