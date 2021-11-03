@@ -7,7 +7,9 @@
 line_graph(
   dat,
   colors = NULL,
+  size = 0.5,
   facet = F,
+  label_names = NULL,
   limits = NULL,
   y_type = scales::percent_format(accuracy = 1),
   line_type = NULL,
@@ -21,7 +23,11 @@ line_graph(
 
 \item{colors}{Colors for "catvar." NULL (default) returns R's automatic coloring.}
 
+\item{size}{Line width. Defaults to 0.5.}
+
 \item{facet}{T to use "facet_label" column to create facetting panels. F (default) does not need "facet_label" column.}
+
+\item{label_names}{Vector of label names to display for each facet.}
 
 \item{limits}{Y-axis limits. NULL (default) returns R's automatic limits.}
 
