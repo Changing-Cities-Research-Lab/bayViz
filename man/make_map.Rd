@@ -12,6 +12,7 @@ make_map(
   title = "Title",
   palette = "sequential",
   jenksbreaks = F,
+  reverse = F,
   neg_bins = 3,
   pos_bins = 3,
   breaks = scales::extended_breaks(n = 6),
@@ -37,6 +38,8 @@ make_map(
 \item{palette}{Color palette: "sequential" (default) or "diverging"}
 
 \item{jenksbreaks}{Uses Jenks Breaks when T, otherwise uses continuous color scale}
+
+\item{reverse}{Reverses color scale when T, otherwise uses default scale.}
 
 \item{neg_bins}{For Jenks breaks, number of negative color bins. Default is 3.}
 

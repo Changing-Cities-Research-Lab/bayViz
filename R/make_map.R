@@ -11,6 +11,7 @@
 #' @param title Title of map
 #' @param palette Color palette: "sequential" (default) or "diverging"
 #' @param jenksbreaks Uses Jenks Breaks when T, otherwise uses continuous color scale
+#' @param reverse Reverses color scale when T, otherwise uses default scale. 
 #' @param neg_bins For Jenks breaks, number of negative color bins. Default is 3.
 #' @param pos_bins For Jenks breaks, number of positive color bins. Default is 3.
 #' @param breaks Gradient scale breaks, either numeric vector or scales::extended_breaks(n = 6)
@@ -31,6 +32,7 @@ make_map <- function(
   title = "Title",
   palette = "sequential",
   jenksbreaks = F,
+  reverse = F,
   neg_bins = 3,
   pos_bins = 3,
   breaks = scales::extended_breaks(n = 6),
@@ -77,6 +79,10 @@ make_map <- function(
     palette = "YlOrRd"
     direction = 1
     
+    if (reverse) {
+      direction = direction * -1
+    }
+    
     # set number of Jenks breaks
     if (jenksbreaks) {
       breaks = data %>%
@@ -97,6 +103,10 @@ make_map <- function(
     type = "div"
     palette = "RdBu"
     direction = -1
+    
+    if (reverse) {
+      direction = direction * -1
+    }
     
     # find Jenks breaks for negative and positive values separately, then combine
     if (jenksbreaks) {
