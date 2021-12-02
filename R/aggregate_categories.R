@@ -24,7 +24,7 @@ aggregate_categories = function(
     dat %>% left_join(racecat, by = "tractid10"),
     dat %>% left_join(inccat, by = "tractid10") 
   ) %>%
-    select(-tractid10) %>%
+    dplyr::select(-tractid10) %>%
     filter(!is.na(facet))
   
   # modify mean, median, and sum so that if there are only NAs then it outputs NA
