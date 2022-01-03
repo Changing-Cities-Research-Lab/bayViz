@@ -29,7 +29,7 @@ make_map(
 
 \item{var}{Name of column containing variable to plot.}
 
-\item{region}{The Bay Area region to map: "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"}
+\item{region}{The Bay Area region to map: "Bay Area", "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"}
 
 \item{shp_tracts}{"US_tract_2010.shp" loaded object}
 

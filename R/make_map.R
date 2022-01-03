@@ -6,7 +6,7 @@
 #'
 #' @param data Data with a "tractid10" column containing census tracts and variable of interest.
 #' @param var Name of column containing variable to plot.
-#' @param region The Bay Area region to map: "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"
+#' @param region The Bay Area region to map: "Bay Area", "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"
 #' @param shp_tracts "US_tract_2010.shp" loaded object
 #' @param title Title of map
 #' @param palette Color palette: "sequential" (default) or "diverging"

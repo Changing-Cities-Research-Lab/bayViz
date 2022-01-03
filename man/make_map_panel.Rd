@@ -27,7 +27,7 @@ make_map_panel(
 
 \item{var}{Name of column containing variable to plot.}
 
-\item{region}{If "group" column is not geographic region names, supply name of region to map for entire panel: "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"}
+\item{region}{If "group" column is not geographic region names, supply name of region to map for entire panel: "Bay Area", "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"}
 
 \item{shp_tracts}{"US_tract_2010.shp" loaded object}
 

@@ -8,7 +8,7 @@
 #'
 #' @param data Data with a "tractid10" column containing census tracts, "group" column containing panel titles; and variable of interest.
 #' @param var Name of column containing variable to plot.
-#' @param region If "group" column is not geographic region names, supply name of region to map for entire panel: "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"
+#' @param region If "group" column is not geographic region names, supply name of region to map for entire panel: "Bay Area", "San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", or "East Bay"
 #' @param shp_tracts "US_tract_2010.shp" loaded object
 #' @param palette Color palette: "sequential" (default) or "diverging"
 #' @param jenksbreaks Uses Jenks Breaks when T, otherwise uses continuous color scale
@@ -52,10 +52,11 @@ make_map_panel <- function(
   library(BAMMtools)
   
   # If supplied, check if region parameter is acceptable
-  if (!is.null(region) &
-      !region %in% c("San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", "East Bay")) {
-    return("Please provide an acceptable region: San Francisco, Oakland, San Jose, South Bay, North Bay, East Bay.")
-  }
+  if (!is.null(region)) {
+    if (!region %in% c("San Francisco", "Oakland", "San Jose", "South Bay", "North Bay", "East Bay")) {
+      return("Please provide an acceptable region: San Francisco, Oakland, San Jose, South Bay, North Bay, East Bay.")
+    }
+  }   
   
   # Adjust color palette
   if (palette == "sequential") {
