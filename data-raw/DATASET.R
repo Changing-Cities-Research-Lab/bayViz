@@ -75,6 +75,9 @@ acs_caption = "\nSource: 2000 US Census, 2005-2009 ACS, and 2012-2016 ACS."
 # Bay Area tractids
 bay_ids <- readr::read_csv("../../oak-data-repo/oakland_geographies/trtid10_bayarea.csv")
 
+# Oakland tractids
+oak_ids <- readr::read_csv("../../oak-data-repo/oakland_geographies/trtid10_oak.csv")
+
 # Oakland tract category data 
 
 # gentrification data
@@ -311,6 +314,7 @@ usethis::use_data(relabel_gent_cat,
                   tracts_use,
                   city_tracts,
                   bay_ids,
+                  oak_ids,
                   gentcat,
                   gmaps,
                   racecat,
