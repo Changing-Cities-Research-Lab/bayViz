@@ -94,6 +94,7 @@ make_map <- function(
     
     # Get limits to center diverging palette around 0
     range <- data %>%
+      st_drop_geometry() %>% 
       select({{var}}) %>%
       abs() %>%
       max(na.rm = T) * c(-1, 1)
@@ -111,6 +112,7 @@ make_map <- function(
     # find Jenks breaks for negative and positive values separately, then combine
     if (jenksbreaks) {
       values = data %>%
+        st_drop_geometry() %>% 
         dplyr::pull({{var}})
       
       # add 0 value to range of values to split negative and positive values
@@ -200,7 +202,7 @@ make_map <- function(
         fill =
           guide_colorbar(
             barheight = 0.5,
-            barwidth = 15,
+            barwidth = 23,
             title = NULL,
             frame.colour = "black"
           )
