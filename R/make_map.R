@@ -274,7 +274,7 @@ make_map <- function(
         fill =
           guide_colorbar(
             barheight = 0.5,
-            barwidth = 15,
+            barwidth = 23,
             title = NULL,
             frame.colour = "black"
           )
