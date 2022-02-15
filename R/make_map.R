@@ -10,6 +10,7 @@
 #' @param shp_tracts "US_tract_2010.shp" loaded object
 #' @param title Title of map
 #' @param palette Color palette: "sequential" (default) or "diverging"
+#' @param seq_colors Specific color scheme for sequential palette (e.g., "YlOrRd" (default), "Greens")
 #' @param jenksbreaks Uses Jenks Breaks when T, otherwise uses continuous color scale
 #' @param reverse Reverses color scale when T, otherwise uses default scale. 
 #' @param neg_bins For Jenks breaks, number of negative color bins. Default is 3.
@@ -31,6 +32,7 @@ make_map <- function(
   shp_tracts,
   title = "Title",
   palette = "sequential",
+  seq_colors = "YlOrRd",
   jenksbreaks = F,
   reverse = F,
   neg_bins = 3,
@@ -74,9 +76,9 @@ make_map <- function(
     
     range = c(min, max)
     
-    MAP_COLORS <- RColorBrewer::brewer.pal(n = 9, name = "YlOrRd")
+    MAP_COLORS <- RColorBrewer::brewer.pal(n = 9, name = seq_colors)
     type = "seq"
-    palette = "YlOrRd"
+    palette = seq_colors,
     direction = 1
     
     if (reverse) {
