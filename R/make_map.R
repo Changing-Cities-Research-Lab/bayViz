@@ -78,7 +78,7 @@ make_map <- function(
     
     MAP_COLORS <- RColorBrewer::brewer.pal(n = 9, name = seq_colors)
     type = "seq"
-    palette = seq_colors,
+    palette = seq_colors
     direction = 1
     
     if (reverse) {
