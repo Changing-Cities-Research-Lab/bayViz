@@ -11,6 +11,7 @@ make_map(
   shp_tracts,
   title = "Title",
   palette = "sequential",
+  seq_colors = "YlOrRd",
   jenksbreaks = F,
   reverse = F,
   neg_bins = 3,
@@ -36,6 +37,8 @@ make_map(
 \item{title}{Title of map}
 
 \item{palette}{Color palette: "sequential" (default) or "diverging"}
+
+\item{seq_colors}{Specific color scheme for sequential palette (e.g., "YlOrRd" (default), "Greens")}
 
 \item{jenksbreaks}{Uses Jenks Breaks when T, otherwise uses continuous color scale}
 
