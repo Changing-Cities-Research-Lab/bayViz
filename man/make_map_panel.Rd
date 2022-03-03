@@ -10,11 +10,14 @@ make_map_panel(
   region = NULL,
   shp_tracts,
   palette = "sequential",
+  div_colors = "RdPu",
   jenksbreaks = F,
+  manualbreaks = NULL,
   neg_bins = 3,
   pos_bins = 3,
   breaks = scales::extended_breaks(n = 6),
   labels = scales::percent,
+  colorscale = "colorbar",
   limits = NULL,
   coord = F,
   save = F,
@@ -33,7 +36,11 @@ make_map_panel(
 
 \item{palette}{Color palette: "sequential" (default) or "diverging"}
 
+\item{div_colors}{Specific color scheme for diverging palette. Defaults to "RdBu"}
+
 \item{jenksbreaks}{Uses Jenks Breaks when T, otherwise uses continuous color scale}
+
+\item{manualbreaks}{Numeric vector of breaks for a discrete color scale. Defaults to continuous scale (or uses jenks breaks if true)}
 
 \item{neg_bins}{For Jenks breaks, number of negative color bins. Default is 3.}
 
@@ -42,6 +49,8 @@ make_map_panel(
 \item{breaks}{Gradient scale breaks, either numeric vector or scales::extended_breaks(n = 6)}
 
 \item{labels}{Gradient scale labels, either character vector or scales::percent or scales::comma}
+
+\item{colorscale}{Format of color key, either "colorbar" or "legend". Default is "colorbar".}
 
 \item{limits}{Gradient scale limits, c(min, max)}
 
