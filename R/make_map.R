@@ -258,15 +258,15 @@ make_map <- function(
                                        direction = direction,
                                        labels = labels)
     }
-  } else if(length(manualbreaks) >= 1){
+  } else if (length(manualbreaks) >= 1){
     # Discrete color scale with breaks provided by user
-    # Add min and max values to user provided manual breaks
+    # Add max value to user provided manual breaks
     max = data %>%
       st_drop_geometry() %>%
       dplyr::pull({{var}}) %>%
-      max()
+      max
 
-    manualbreaks = c(0, manualbreaks, max)
+    manualbreaks = c(manualbreaks, max)
 
     var_null = manualbreaks
 
