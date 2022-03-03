@@ -12,7 +12,9 @@ make_map(
   title = "Title",
   palette = "sequential",
   seq_colors = "YlOrRd",
+  div_colors = "RdBu",
   jenksbreaks = F,
+  manualbreaks = NULL,
   reverse = F,
   neg_bins = 3,
   pos_bins = 3,
@@ -40,7 +42,11 @@ make_map(
 
 \item{seq_colors}{Specific color scheme for sequential palette (e.g., "YlOrRd" (default), "Greens")}
 
+\item{div_colors}{Specific color scheme for diverging palette. Defaults to "RdBu"}
+
 \item{jenksbreaks}{Uses Jenks Breaks when T, otherwise uses continuous color scale}
+
+\item{manualbreaks}{Numeric vector of breaks for a discrete color scale. Defaults to continuous scale (or uses jenks breaks if true)}
 
 \item{reverse}{Reverses color scale when T, otherwise uses default scale.}
 
